@@ -8,9 +8,15 @@ const Signup = async (req, res) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
   try {
     if (await User.findOne({ email }))
-      return res.status(400).json({ error: "Email id is already taken" });
+      return res.status(400).json({
+        errorId: "email_taken",
+        errorMessage: "Email-id is already associated with another account",
+      });
     if (password !== confirmPassword)
-      return res.status(400).json({ error: "password doesn't match" });
+      return res.status(400).json({
+        errorId: "password_mismatch",
+        errorMessage: "Password doesn't match",
+      });
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       firstName,

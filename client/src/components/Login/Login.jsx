@@ -8,6 +8,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showLogin, setShowLogin] = useState(false);
+  const [errorContent, setErrorContent] = useState(null);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -18,13 +19,12 @@ function Login() {
     api
       .login({ email, password })
       .then((recieved) => {
-        console.log(recieved);
         const token = recieved.data.token;
         localStorage.setItem("jwtToken", token);
         navigate("/");
       })
       .catch((error) => {
-        console.log({ message: error });
+        setErrorContent(error);
       });
   };
 
@@ -51,12 +51,18 @@ function Login() {
           </Typography>
           <form>
             <TextField
-              label="Email"
+              label="E-Mail"
               variant="outlined"
               fullWidth
               margin="normal"
               value={email}
               onChange={handleEmailChange}
+              error={errorContent?.response?.data?.errorId === "invalid_email"}
+              helperText={
+                errorContent?.response?.data?.errorId === "invalid_email"
+                  ? errorContent.response.data.errorMessage
+                  : ""
+              }
             />
             <TextField
               label="Password"
@@ -66,6 +72,14 @@ function Login() {
               margin="normal"
               value={password}
               onChange={handlePasswordChange}
+              error={
+                errorContent?.response?.data?.errorId === "incorrect_password"
+              }
+              helperText={
+                errorContent?.response?.data?.errorId === "incorrect_password"
+                  ? errorContent.response.data.errorMessage
+                  : ""
+              }
             />
             <Button
               variant="contained"

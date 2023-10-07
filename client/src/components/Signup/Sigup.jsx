@@ -14,6 +14,7 @@ function Signup() {
     confirmPassword: "",
   };
   const [formData, setFormData] = useState(initialState);
+  const [errorContent, setErrorContent] = useState(null);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -21,11 +22,13 @@ function Signup() {
     api
       .signup(formData)
       .then((recieved) => {
-        console.log(recieved.data);
+        const token = recieved.data.token;
+        localStorage.setItem("jwtToken", token);
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
+        setErrorContent(err);
       });
   };
   return (
@@ -57,7 +60,6 @@ function Signup() {
           ></TextField>
           <TextField
             required
-            // error
             label="E-mail"
             name="email"
             type="email"
@@ -66,7 +68,12 @@ function Signup() {
             margin="normal"
             value={formData.email}
             onChange={handleChange}
-            // helperText="Invalid email id"
+            error={errorContent?.response?.data?.errorId === "email_taken"}
+            helperText={
+              errorContent?.response?.data?.errorId === "email_taken"
+                ? errorContent.response.data.errorMessage
+                : ""
+            }
           ></TextField>
           <TextField
             required
@@ -78,6 +85,14 @@ function Signup() {
             type="password"
             value={formData.password}
             onChange={handleChange}
+            error={
+              errorContent?.response?.data?.errorId === "password_mismatch"
+            }
+            helperText={
+              errorContent?.response?.data?.errorId === "password_mismatch"
+                ? errorContent.response.data.errorMessage
+                : ""
+            }
           ></TextField>
           <TextField
             required
