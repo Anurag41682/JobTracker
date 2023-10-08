@@ -14,9 +14,13 @@ const Login = (req, res) => {
     // verified successfully
     const user = req.user;
     // Generate a JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.secretKey, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { email: user.email, firstName: user.firstName, lastName: user.lastName },
+      process.env.secretKey,
+      {
+        expiresIn: "1h",
+      }
+    );
     return res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ message: err });

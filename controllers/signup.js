@@ -26,9 +26,11 @@ const Signup = async (req, res) => {
     });
     await user.save();
     const token = jwt.sign(
-      { email: user.email, id: user.id },
+      { email: user.email, firstName: user.firstName, lastName: user.lastName },
       process.env.secretKey,
-      { expiresIn: "1h" }
+      {
+        expiresIn: "1h",
+      }
     );
     res.status(201).json({ token, message: "Signup Successful" });
   } catch (error) {
