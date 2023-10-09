@@ -1,16 +1,8 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "../Header/Header";
-import Landing from "../Landing/Landing";
 import Footer from "../Footer/Footer";
-function home(props) {
+function Add(props) {
   const [show, setShow] = useState(false);
-  const navigate = useNavigate();
-
-  //atob is used to convert base64 to javascript string
-  // split is used to convert a string into array of substring with the specified delimter in this case "."
-  //json parse is used to convert jsonString to jsonObject
-
   useEffect(() => {
     if (props.isAuth) {
       setShow(true);
@@ -29,10 +21,11 @@ function home(props) {
         }}
       >
         <Header decoded={props.decoded} />
-        <Landing />
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione,
+        architecto.
         <Footer />
       </div>
     );
   else return null;
 }
-export default home;
+export default Add;
