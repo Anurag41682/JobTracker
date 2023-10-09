@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Typography, TextField, Button, Paper } from "@mui/material";
 import paperStyles from "./styles/paperStyles";
+import isAuth from "../../utils/isAuth";
 import * as api from "../../api/index";
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showLogin, setShowLogin] = useState(false);
+  const [show, setShow] = useState(false);
   const [errorContent, setErrorContent] = useState(null);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -28,21 +29,15 @@ function Login() {
       });
   };
 
-  function isTokenExpired(token) {
-    const currentTime = Date.now() / 1000;
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
-    return decodedToken.exp < currentTime;
-  }
-
+  const jwtToken = localStorage.getItem("jwtToken");
   useEffect(() => {
-    const jwtToken = localStorage.getItem("jwtToken");
-    if (jwtToken && !isTokenExpired(jwtToken)) {
+    if (isAuth(jwtToken)) {
       navigate("/");
     } else {
-      setShowLogin(true);
+      setShow(true);
     }
   }, []);
-  if (showLogin)
+  if (show)
     return (
       <Container maxWidth="sm" style={{ margin: "35px auto" }}>
         <Paper elevation={10} style={paperStyles}>

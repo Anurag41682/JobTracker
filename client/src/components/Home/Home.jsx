@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Landing from "../Landing/Landing";
 import Footer from "../Footer/Footer";
-function home(props) {
+import isAuth from "../../utils/isAuth";
+import decodeFn from "../../utils/decodeFn";
+
+function home() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  //atob is used to convert base64 to javascript string
-  // split is used to convert a string into array of substring with the specified delimter in this case "."
-  //json parse is used to convert jsonString to jsonObject
-
+  const jwtToken = localStorage.getItem("jwtToken");
+  const decodedToken = decodeFn(jwtToken);
   useEffect(() => {
-    if (props.isAuth) {
+    if (isAuth(jwtToken)) {
       setShow(true);
     } else {
       navigate("/login");
@@ -28,7 +29,7 @@ function home(props) {
           justifyContent: "space-between",
         }}
       >
-        <Header decoded={props.decoded} />
+        <Header decoded={decodedToken} />
         <Landing />
         <Footer />
       </div>
