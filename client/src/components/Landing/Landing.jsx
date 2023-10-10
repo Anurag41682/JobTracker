@@ -18,6 +18,7 @@ function Landing() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
+          marginTop: "150px",
         }}
         gap={10}
       >

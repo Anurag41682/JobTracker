@@ -7,36 +7,54 @@ import decodeFn from "../../utils/decodeFn";
 import {
   Paper,
   TextField,
-  Select,
   MenuItem,
   Button,
-  InputLabel,
-  FormControl,
   Grid,
+  Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SendIcon from "@mui/icons-material/Send";
+import { addApplication } from "../../api";
+
+//--------------------------------------------------------------------------//
+
 function Add() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const jwtToken = localStorage.getItem("jwtToken");
   const decodedToken = decodeFn(jwtToken);
 
-  const [jobTitle, setJobTitle] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [applicationDate, setApplicationDate] = useState("");
-  const [status, setStatus] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
-  const [resumeFile, setResumeFile] = useState(null);
+  const [applicationData, setApplicationData] = useState({
+    jobTitle: "",
+    companyName: "",
+    applicationDate: "",
+    status: "",
+    jobDescription: "",
+    resumeFile: null,
+  });
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    setResumeFile(file);
+    setApplicationData({ ...applicationData, resumeFile: file });
   };
 
-  const handleSubmit = () => {
-    // Handle form submission, e.g., send data to the server
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addApplication(applicationData)
+      .then((recieved) => {
+        console.log(recieved);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleChange = (event) => {
+    setApplicationData({
+      ...applicationData,
+      [event.target.name]: event.target.value,
+    });
   };
 
   useEffect(() => {
@@ -58,66 +76,120 @@ function Add() {
       >
         <Header decoded={decodedToken} />
         {/* --------- */}
-        <form>
+        <form onSubmit={handleSubmit}>
           <Paper
             elevation={10}
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              margin: "0 100px",
+              margin: "150px 100px",
               padding: "10px",
             }}
           >
-            <Grid container gap={1} sx={{ alignItems: "center" }}>
-              <Grid md={4} item>
-                <TextField label="Job Title" required />
+            <Grid
+              container
+              gap={1}
+              sx={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Grid xs={8} sm={8} md={8} item>
+                <TextField
+                  name="jobTitle"
+                  fullWidth
+                  label="Job Title"
+                  required
+                  value={applicationData.jobTitle}
+                  onChange={handleChange}
+                />
               </Grid>
-              <Grid md={4} item>
-                <TextField label="Company" required />
+              <Grid xs={8} sm={8} md={8} item>
+                <TextField
+                  name="companyName"
+                  value={applicationData.companyName}
+                  fullWidth
+                  label="Company"
+                  required
+                  onChange={handleChange}
+                />
               </Grid>
-              <Grid md={4} item>
-                <DatePicker format="D/M/YYYY" />
+              <Grid xs={8} sm={8} md={8} item>
+                <DatePicker
+                  onChange={(newValue) =>
+                    setApplicationData({
+                      ...applicationData,
+                      applicationDate: newValue,
+                    })
+                  }
+                  slotProps={{ textField: { fullWidth: true } }}
+                  format="D/M/YYYY"
+                />
               </Grid>
 
-              <Grid item md={4}>
-                <FormControl sx={{ minWidth: "200px" }}>
-                  <InputLabel>Status</InputLabel>
-                  <Select label="Status">
-                    <MenuItem>Pending</MenuItem>
-                    <MenuItem>Rejected</MenuItem>
-                  </Select>
-                </FormControl>
+              <Grid item xs={8} sm={8} md={8}>
+                <TextField
+                  name="status"
+                  value={applicationData.status}
+                  label="Status"
+                  select
+                  required
+                  fullWidth
+                  onChange={handleChange}
+                >
+                  <MenuItem value="pending">Pending</MenuItem>
+                  <MenuItem value="rejected">Rejected</MenuItem>
+                  <MenuItem value="accepted">Accepted</MenuItem>
+                </TextField>
               </Grid>
-              <Grid md={8} item>
+              <Grid xs={8} sm={8} md={8} item>
                 <TextField
                   label="Job Description"
                   multiline
                   fullWidth
+                  minRows={10}
+                  name="jobDescription"
+                  value={applicationData.jobDescription}
+                  onChange={handleChange}
                 ></TextField>
               </Grid>
+              {/*---------- buttons ----------- */}
+              <Grid item xs={8} sm={8} md={8}>
+                <Button
+                  component="label"
+                  variant="contained"
+                  startIcon={<CloudUploadIcon />}
+                  size="large"
+                  sx={{ minWidth: "120px" }}
+                  fullWidth
+                >
+                  Resume
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileUpload}
+                    style={{ display: "none" }}
+                    required={!applicationData.resumeFile}
+                  />
+                </Button>
+                {!applicationData.resumeFile && (
+                  <Typography color="#616161">
+                    Please select your resume file.
+                  </Typography>
+                )}
+              </Grid>
+              <Grid item xs={8} sm={8} md={8}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<SendIcon />}
+                  size="large"
+                  sx={{ minWidth: "120px" }}
+                  fullWidth
+                >
+                  Submit
+                </Button>
+              </Grid>
             </Grid>
-            <Button
-              component="label"
-              variant="contained"
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload Resume
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileUpload}
-                style={{ display: "none" }}
-              />
-            </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              startIcon={<SendIcon />}
-            >
-              Submit
-            </Button>
           </Paper>
         </form>
         {/* ----------- */}
