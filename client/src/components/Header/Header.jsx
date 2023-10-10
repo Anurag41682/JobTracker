@@ -7,7 +7,7 @@ function Header(props) {
       <Paper
         elevation={10}
         sx={{
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.palette.primary[500],
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
@@ -21,10 +21,10 @@ function Header(props) {
           }}
         >
           <Typography
-            color={theme.palette.primary.darkT}
+            color={theme.palette.primary[800]}
             variant="h3"
           >{`${decodedToken.firstName} ${decodedToken.lastName}`}</Typography>
-          <Typography variant="h5" color={theme.palette.primary.darkT}>
+          <Typography variant="h5" color={theme.palette.primary[800]}>
             {`${decodedToken.email}`}
           </Typography>
         </div>

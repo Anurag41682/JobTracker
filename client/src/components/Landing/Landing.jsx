@@ -30,20 +30,21 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h5" color={theme.palette.primary.darkT}>
-              Total application tracked
+            <Typography color={theme.palette.primary[800]} variant="h6">
+              ADD NEW APPLICATION
             </Typography>
-            <Typography variant="h1" color={theme.palette.primary.darkT}>
-              10
+            <Typography variant="h1" color={theme.palette.primary[800]}>
+              +
             </Typography>
             <StyledButton
               variant="contained"
-              onClick={handleInfoClick}
+              color="primary"
+              onClick={handleAddClick}
               size="large"
-              startIcon={<InfoIcon></InfoIcon>}
-              style={{ color: `${theme.palette.primary.darkT}` }}
+              startIcon={<AddCircleIcon />}
+              style={{ color: `${theme.palette.primary[800]}` }}
             >
-              View details
+              Add
             </StyledButton>
           </CardContent>
         </StyledCard>
@@ -57,21 +58,20 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography color={theme.palette.primary.darkT} variant="h5">
-              Add new application
+            <Typography variant="h6" color={theme.palette.primary[800]}>
+              TOTAL APPLICATION TRACKED
             </Typography>
-            <Typography variant="h1" color={theme.palette.primary.darkT}>
-              +
+            <Typography variant="h1" color={theme.palette.primary[800]}>
+              10
             </Typography>
             <StyledButton
               variant="contained"
-              color="primary"
-              onClick={handleAddClick}
+              onClick={handleInfoClick}
               size="large"
-              startIcon={<AddCircleIcon />}
-              style={{ color: `${theme.palette.primary.darkT}` }}
+              startIcon={<InfoIcon></InfoIcon>}
+              style={{ color: `${theme.palette.primary[800]}` }}
             >
-              Add
+              View details
             </StyledButton>
           </CardContent>
         </StyledCard>
