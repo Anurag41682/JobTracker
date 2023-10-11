@@ -24,7 +24,6 @@ function Add() {
   const [show, setShow] = useState(false);
   const jwtToken = localStorage.getItem("jwtToken");
   const decodedToken = decodeFn(jwtToken);
-
   const [applicationData, setApplicationData] = useState({
     jobTitle: "",
     companyName: "",
@@ -41,6 +40,7 @@ function Add() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(applicationData);
     addApplication(applicationData)
       .then((recieved) => {
         console.log(recieved);

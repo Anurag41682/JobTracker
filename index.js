@@ -2,7 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import Auth from "./routes/auth.js";
+import auth from "./routes/auth.js";
+import addApplication from "./routes/addApplication.js";
 // import passport from "passport";
 dotenv.config();
 const app = express();
@@ -15,7 +16,8 @@ app.use(express.json({ extended: true }));
 // app.use(passport.initialize());
 
 //----- Specific -------
-app.use("/", Auth);
+app.use("/", auth);
+app.use("/", addApplication);
 
 //-------Mongodb Setup ---------
 mongoose
