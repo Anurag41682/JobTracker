@@ -43,12 +43,14 @@ passport.use(
       secretOrKey: process.env.secretKey,
     },
     async (payload, done) => {
+      // the jwt payload here is == payload
+      //payload is the data that you use to sign with secretKey using jwt
       try {
         const user = await User.findById(payload.id);
         if (!user) {
           return done(null, false, { message: "User not found" });
         }
-        return done(null, user);
+        return done(null, user, { message: "Hurray" });
       } catch (error) {
         return done(error, false, {
           message: "Error while authenticating user!",

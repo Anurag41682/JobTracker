@@ -33,21 +33,11 @@ function Add() {
     resumeFile: null,
   });
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    setApplicationData({ ...applicationData, resumeFile: file });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(applicationData);
-    addApplication(applicationData)
-      .then((recieved) => {
-        console.log(recieved);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleFileChange = (event) => {
+    setApplicationData({
+      ...applicationData,
+      resumeFile: event.target.files[0],
+    });
   };
 
   const handleChange = (event) => {
@@ -55,6 +45,26 @@ function Add() {
       ...applicationData,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(applicationData);
+    const formData = new FormData();
+    formData.append("jobTitle", applicationData.jobTitle);
+    formData.append("companyName", applicationData.companyName);
+    formData.append("applicationDate", applicationData.applicationDate);
+    formData.append("status", applicationData.status);
+    formData.append("jobDescription", applicationData.jobDescription);
+    formData.append("file", applicationData.resumeFile);
+    addApplication(formData)
+      .then((recieved) => {
+        console.log(recieved);
+      })
+      .catch((error) => {
+        // window.location.reload();
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -165,9 +175,11 @@ function Add() {
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
-                    onChange={handleFileUpload}
                     style={{ display: "none" }}
+                    name="resumeFile"
+                    id="resumeFile"
                     required={!applicationData.resumeFile}
+                    onChange={handleFileChange}
                   />
                 </Button>
                 {!applicationData.resumeFile && (

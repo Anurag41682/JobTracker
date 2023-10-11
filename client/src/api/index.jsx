@@ -5,6 +5,7 @@ const API = axios.create({
   baseURL: URL,
   headers: {
     Authorization: `Bearer ${jwtToken}`, // Add the JWT token to the headers
+    // "Content-Type": "multipart/form-data",
   },
 });
 export const signup = (formData) => API.post("/signup", formData);
