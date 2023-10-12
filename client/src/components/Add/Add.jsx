@@ -49,7 +49,7 @@ function Add() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(applicationData);
+    // console.log(applicationData);
     const formData = new FormData();
     formData.append("jobTitle", applicationData.jobTitle);
     formData.append("companyName", applicationData.companyName);
@@ -59,7 +59,9 @@ function Add() {
     formData.append("file", applicationData.resumeFile);
     addApplication(formData)
       .then((recieved) => {
-        console.log(recieved);
+        // add later something beautiful to give response to user for successful save.
+        window.alert(recieved.data.message);
+        // console.log(recieved);
       })
       .catch((error) => {
         // window.location.reload(); //reload to login page if the token is expired
