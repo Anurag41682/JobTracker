@@ -1,7 +1,10 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-const applicationSchema = new Schema({
+const applicationSchema = new mongoose.Schema({
+  creator: {
+    type: String,
+    required: true,
+  },
   jobTitle: {
     type: String,
     required: true,
@@ -16,12 +19,15 @@ const applicationSchema = new Schema({
   },
   applicationDate: {
     type: Date,
+    required: true,
   },
   jobDescription: {
     type: String,
+    required: true,
   },
-  resumeFile: {
+  resumeFileName: {
     type: String,
+    required: true,
   },
 });
 

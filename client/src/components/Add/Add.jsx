@@ -62,7 +62,7 @@ function Add() {
         console.log(recieved);
       })
       .catch((error) => {
-        window.location.reload(); //reload to login page if the token is expired
+        // window.location.reload(); //reload to login page if the token is expired
         console.log(error);
       });
   };
@@ -159,6 +159,7 @@ function Add() {
                   name="jobDescription"
                   value={applicationData.jobDescription}
                   onChange={handleChange}
+                  required
                 ></TextField>
               </Grid>
               {/*---------- buttons ----------- */}
