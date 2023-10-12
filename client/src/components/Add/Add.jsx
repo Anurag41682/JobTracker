@@ -62,7 +62,7 @@ function Add() {
         console.log(recieved);
       })
       .catch((error) => {
-        // window.location.reload();
+        window.location.reload(); //reload to login page if the token is expired
         console.log(error);
       });
   };

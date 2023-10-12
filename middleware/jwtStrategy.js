@@ -5,11 +5,11 @@ import passport from "../config/passport-config.js";
 const jwtAuthMiddleware = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, user, info) => {
     //info == third parameter inside passport-strategy's return
-    console.log(info);
     if (err) {
       return next(err); // Handle errors by passing them to the error-handling middleware
     }
     if (!user) {
+      console.log("ANURAG@--");
       req.authInfo = {
         errorMessage: info.message,
       };

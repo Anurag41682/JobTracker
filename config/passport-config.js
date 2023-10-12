@@ -45,6 +45,7 @@ passport.use(
     async (payload, done) => {
       // the jwt payload here is == payload
       //payload is the data that you use to sign with secretKey using jwt
+
       try {
         const user = await User.findById(payload.id);
         if (!user) {

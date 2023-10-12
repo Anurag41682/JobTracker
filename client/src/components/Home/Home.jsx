@@ -9,7 +9,6 @@ import decodeFn from "../../utils/decodeFn";
 function home() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
   const jwtToken = localStorage.getItem("jwtToken");
   const decodedToken = decodeFn(jwtToken);
   useEffect(() => {

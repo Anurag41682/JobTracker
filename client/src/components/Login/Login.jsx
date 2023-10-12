@@ -4,6 +4,7 @@ import { Container, Typography, TextField, Button, Paper } from "@mui/material";
 import paperStyles from "./styles/paperStyles";
 import isAuth from "../../utils/isAuth";
 import * as api from "../../api/index";
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -30,6 +31,7 @@ function Login() {
   };
 
   const jwtToken = localStorage.getItem("jwtToken");
+
   useEffect(() => {
     if (isAuth(jwtToken)) {
       navigate("/");
