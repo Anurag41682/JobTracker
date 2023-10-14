@@ -9,7 +9,6 @@ const jwtAuthMiddleware = (req, res, next) => {
       return next(err); // Handle errors by passing them to the error-handling middleware
     }
     if (!user) {
-      console.log("ANURAG@--");
       req.authInfo = {
         errorMessage: info.message,
       };

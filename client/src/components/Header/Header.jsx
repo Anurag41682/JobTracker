@@ -12,10 +12,12 @@ function Header(props) {
           position: "fixed",
           justifyContent: "space-between",
           alignItems: "center",
+          top: "0",
           right: "0",
           left: "0",
           zIndex: "100",
-          padding: "10px 100px",
+          padding: "0 100px",
+          height: "16vh",
         }}
       >
         <div

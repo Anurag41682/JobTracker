@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import isAuth from "../../utils/isAuth";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import decodeFn from "../../utils/decodeFn";
+import MyDataContext from "../../ApplicationDataContext";
+
 import {
   Paper,
   TextField,
@@ -20,6 +22,12 @@ import { addApplication } from "../../api";
 //--------------------------------------------------------------------------//
 
 function Add() {
+  const { applicationData: data, setApplicationData: setData } =
+    useContext(MyDataContext);
+  if (data) {
+    localStorage.setItem("data", JSON.stringify(data));
+  }
+  const localData = JSON.parse(localStorage.getItem("data"));
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const jwtToken = localStorage.getItem("jwtToken");
@@ -61,7 +69,9 @@ function Add() {
       .then((recieved) => {
         // add later something beautiful to give response to user for successful save.
         window.alert(recieved.data.message);
+        setData([...localData, recieved.data.application]);
         // console.log(recieved);
+        navigate("/home");
       })
       .catch((error) => {
         // window.location.reload(); //reload to login page if the token is expired

@@ -2,7 +2,7 @@ import Application from "../models/application.js";
 const Add = async (req, res) => {
   try {
     if (req.authInfo) {
-      res.status(400).json({ error: req.authInfo.errorMessage });
+      return res.status(400).json({ error: req.authInfo.errorMessage });
     }
     const decodedToken = JSON.parse(
       atob(req.headers.authorization.split(".")[1])

@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Landing from "../Landing/Landing";
 import Footer from "../Footer/Footer";
 import isAuth from "../../utils/isAuth";
 import decodeFn from "../../utils/decodeFn";
+import MyDataContext from "../../ApplicationDataContext";
 
 function home() {
+  // const { applicationData: data, _ } = useContext(MyDataContext);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const jwtToken = localStorage.getItem("jwtToken");
@@ -24,8 +26,6 @@ function home() {
         style={{
           display: "flex",
           flexDirection: "column",
-          minHeight: "100vh",
-          justifyContent: "space-between",
         }}
       >
         <Header decoded={decodedToken} />

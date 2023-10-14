@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 function Landing() {
   const navigate = useNavigate();
   const handleAddClick = () => {
-    navigate("/add");
+    navigate("/home/add");
   };
-  const handleInfoClick = () => {};
+  const handleInfoClick = () => {
+    navigate("/home/info");
+  };
   return (
     <>
       <Grid
@@ -18,7 +20,7 @@ function Landing() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: "150px",
+          minHeight: "100vh",
         }}
         gap={10}
       >

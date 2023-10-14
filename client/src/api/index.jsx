@@ -26,3 +26,8 @@ export const addApplication = (applicationData) => {
   setAuthorizationHeader();
   return API.post("/add", applicationData);
 };
+
+export const fetchApplications = () => {
+  setAuthorizationHeader();
+  return API.get("/applications");
+};
