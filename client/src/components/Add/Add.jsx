@@ -106,7 +106,7 @@ function Add() {
               justifyContent: "center",
               alignItems: "center",
               // margin: "150px 20px",
-              my: 28,
+              my: 35,
               mx: { md: 25, sm: 12, xs: 4 },
               // mx: "auto",
               padding: "10px",

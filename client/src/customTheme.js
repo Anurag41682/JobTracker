@@ -5,6 +5,7 @@ const theme = createTheme({
     background: {
       default: "#f7f7f7",
     },
+    // background: "linear-gradient(45deg, #1976D2, #388E3C)",
     primary: {
       50: "#f1fff5",
       100: "#e3ffec",
@@ -27,10 +28,10 @@ const theme = createTheme({
       fontSize: "1rem", // Default font size for body text
     },
     body2: {
-      fontSize: "2rem",
+      fontSize: "1.5rem",
     },
   },
-  breakpoints: createTheme().breakpoints,
+  // breakpoints: createTheme().breakpoints,
   components: {
     MuiTextField: {
       styleOverrides: {

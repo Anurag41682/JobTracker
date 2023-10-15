@@ -20,9 +20,12 @@ function Landing() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "100vh",
+          minHeight: "80vh",
+          marginTop: "20vh",
+          alignContent: "start",
         }}
         gap={10}
+        container
       >
         <StyledCard>
           <CardContent
@@ -38,8 +41,7 @@ function Landing() {
                 fontSize: {
                   //values are in pixel
                   md: 20,
-                  sm: 15,
-                  xs: 10,
+                  xs: 15,
                 },
               }}
               color={theme.palette.primary[800]}
@@ -89,8 +91,7 @@ function Landing() {
                 fontSize: {
                   //values are in pixel
                   md: 20,
-                  sm: 15,
-                  xs: 10,
+                  xs: 15,
                 },
               }}
               color={theme.palette.primary[800]}

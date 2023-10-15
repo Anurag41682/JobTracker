@@ -20,7 +20,7 @@ function ApplicationList() {
       <Grid
         container
         sx={{
-          minHeight: "100vh",
+          minHeight: "82vh",
           marginTop: "18vh",
           gap: "2rem",
           justifyContent: "center",
@@ -37,14 +37,14 @@ function ApplicationList() {
                 <Typography variant="subtitle1" color="textSecondary">
                   {item.companyName}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body1" color="textSecondary">
                   Status: {item.status}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body1" color="textSecondary">
                   Application Date: {formatDate(item.applicationDate)}
                 </Typography>
-                <Typography variant="body1">Job Description:</Typography>
-                <Typography variant="body2">{item.jobDescription}</Typography>
+                <Typography variant="body2">Job Description:</Typography>
+                <Typography variant="body1">{item.jobDescription}</Typography>
                 {/* {resumeUrl && (
                 <Button
                   startIcon={<Description />}
