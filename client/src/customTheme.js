@@ -18,6 +18,19 @@ const theme = createTheme({
       900: "#0b1910",
     },
   },
+  //pixel
+  spacing: 4,
+  // second way to responsive font-size
+  //sx={{ typography: { sm: 'body1', xs: 'body2' }
+  typography: {
+    body1: {
+      fontSize: "1rem", // Default font size for body text
+    },
+    body2: {
+      fontSize: "2rem",
+    },
+  },
+  breakpoints: createTheme().breakpoints,
   components: {
     MuiTextField: {
       styleOverrides: {
@@ -87,5 +100,15 @@ const theme = createTheme({
     },
   },
 });
+// one way to responsive font-size
+// theme.typography.h3 = {
+//   fontSize: "1.2rem",
+//   "@media (min-width:600px)": {
+//     fontSize: "1.5rem",
+//   },
+//   [theme.breakpoints.up("md")]: {
+//     fontSize: "2.4rem",
+//   },
+// };
 
 export default theme;

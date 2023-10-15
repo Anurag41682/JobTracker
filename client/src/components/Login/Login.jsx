@@ -89,7 +89,7 @@ function Login() {
             </Button>
           </form>
           <Typography
-            variant="body2"
+            variant="body1"
             align="center"
             style={{ marginTop: "16px" }}
           >

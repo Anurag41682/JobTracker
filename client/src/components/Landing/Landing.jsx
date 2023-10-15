@@ -33,10 +33,29 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography color={theme.palette.primary[800]} variant="h6">
+            <Typography
+              sx={{
+                fontSize: {
+                  //values are in pixel
+                  md: 20,
+                  sm: 15,
+                  xs: 10,
+                },
+              }}
+              color={theme.palette.primary[800]}
+            >
               ADD NEW APPLICATION
             </Typography>
-            <Typography variant="h1" color={theme.palette.primary[800]}>
+            <Typography
+              sx={{
+                fontSize: {
+                  md: 80,
+                  sm: 60,
+                  xs: 40,
+                },
+              }}
+              color={theme.palette.primary[800]}
+            >
               +
             </Typography>
             <StyledButton
@@ -61,10 +80,33 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h6" color={theme.palette.primary[800]}>
+            <Typography
+              //2nd method for responsive fontsize
+              // sx={{ typography: { sm: "body2", xs: "body1" } }}
+
+              //3rd method for reponsive fontsize(most customizable)
+              sx={{
+                fontSize: {
+                  //values are in pixel
+                  md: 20,
+                  sm: 15,
+                  xs: 10,
+                },
+              }}
+              color={theme.palette.primary[800]}
+            >
               TOTAL APPLICATION TRACKED
             </Typography>
-            <Typography variant="h1" color={theme.palette.primary[800]}>
+            <Typography
+              sx={{
+                fontSize: {
+                  md: 80,
+                  sm: 60,
+                  xs: 40,
+                },
+              }}
+              color={theme.palette.primary[800]}
+            >
               10
             </Typography>
             <StyledButton

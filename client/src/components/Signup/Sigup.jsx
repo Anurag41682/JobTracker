@@ -113,7 +113,7 @@ function Signup() {
             Signup
           </Button>
           <Typography
-            variant="body2"
+            variant="body1"
             align="center"
             style={{ marginTop: "16px" }}
           >

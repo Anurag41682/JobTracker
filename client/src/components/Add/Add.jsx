@@ -105,7 +105,10 @@ function Add() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              margin: "150px 100px",
+              // margin: "150px 20px",
+              my: 28,
+              mx: { md: 25, sm: 12, xs: 4 },
+              // mx: "auto",
               padding: "10px",
             }}
           >

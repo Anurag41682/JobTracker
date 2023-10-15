@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { useContext } from "react";
 import MyDataContext from "../../ApplicationDataContext";
-
+import { Card, CardContent, Typography } from "@mui/material";
 function formatDate(dateString) {
   // Create a Date object from the date string
   const date = new Date(dateString);
@@ -18,32 +18,45 @@ function ApplicationList() {
   return (
     <>
       <Grid
+        container
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           minHeight: "100vh",
           marginTop: "18vh",
+          gap: "2rem",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <ul>
-          {data?.map((item) => (
-            <li key={item._id}>
-              <strong>Job Title:</strong> {item.jobTitle}
-              <br />
-              <strong>Company Name:</strong> {item.companyName}
-              <br />
-              <strong>Status:</strong> {item.status}
-              <br />
-              <strong>Application Date:</strong>
-              {formatDate(item.applicationDate)}
-              <br />
-              <strong>Job Description:</strong> {item.jobDescription}
-              <br />
-              <strong>Resume File Name:</strong> {item.resumeFileName}
-            </li>
-          ))}
-        </ul>
+        {data.map((item) => (
+          <Grid key={item._id} item xs={8} sm={6} md={4}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  {item.jobTitle}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  {item.companyName}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Status: {item.status}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Application Date: {formatDate(item.applicationDate)}
+                </Typography>
+                <Typography variant="body1">Job Description:</Typography>
+                <Typography variant="body2">{item.jobDescription}</Typography>
+                {/* {resumeUrl && (
+                <Button
+                  startIcon={<Description />}
+                  onClick={() => window.open(resumeUrl, "_blank")}
+                >
+                  Open Resume
+                </Button>
+              )} */}
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </>
   );
