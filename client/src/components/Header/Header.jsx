@@ -9,9 +9,11 @@ import {
 } from "@mui/material";
 import theme from "../../customTheme";
 import { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { setProfilePicture } from "../../api";
 import MyDataContext from "../../ApplicationDataContext";
 function Header(props) {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const {
     applicationData,
@@ -22,6 +24,12 @@ function Header(props) {
   if (URL) localStorage.setItem("imgURL", JSON.stringify(URL));
   const pictureUrl = JSON.parse(localStorage.getItem("imgURL"));
   const fileInputRef = useRef(null);
+
+  const handleLogout = () => {
+    // Clear localStorage
+    localStorage.clear();
+    navigate("/login");
+  };
 
   const handleFileInputClick = () => {
     fileInputRef.current.click();
@@ -112,7 +120,7 @@ function Header(props) {
               ></input>
               Set Profile Photo
             </MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

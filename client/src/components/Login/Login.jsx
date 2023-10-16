@@ -31,7 +31,7 @@ function Login() {
   };
 
   const jwtToken = localStorage.getItem("jwtToken");
-
+  // console.log(jwtToken);
   useEffect(() => {
     if (isAuth(jwtToken)) {
       navigate("/");

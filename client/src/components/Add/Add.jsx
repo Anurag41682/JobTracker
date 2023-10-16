@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import isAuth from "../../utils/isAuth";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import decodeFn from "../../utils/decodeFn";
 import MyDataContext from "../../ApplicationDataContext";
 
@@ -69,8 +69,9 @@ function Add() {
       .then((recieved) => {
         // add later something beautiful to give response to user for successful save.
         window.alert(recieved.data.message);
-        setData([...localData, recieved.data.application]);
-        // console.log(recieved);
+        const updatedData = [...localData, recieved.data.application];
+        setData(updatedData);
+        localStorage.setItem("data", JSON.stringify(updatedData));
         navigate("/home");
       })
       .catch((error) => {
@@ -106,7 +107,7 @@ function Add() {
               justifyContent: "center",
               alignItems: "center",
               // margin: "150px 20px",
-              my: 35,
+              my: "20vh",
               mx: { md: 25, sm: 12, xs: 4 },
               // mx: "auto",
               padding: "10px",
@@ -114,7 +115,7 @@ function Add() {
           >
             <Grid
               container
-              gap={1}
+              gap={3}
               sx={{ justifyContent: "center", alignItems: "center" }}
             >
               <Grid xs={8} sm={8} md={8} item>
@@ -200,7 +201,7 @@ function Add() {
                 </Button>
                 {!applicationData.resumeFile && (
                   <Typography color="#616161">
-                    Please select your resume file.
+                    Select your resume file<sup> *</sup>
                   </Typography>
                 )}
               </Grid>
