@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
 import theme from "../../customTheme";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +33,7 @@ function Header(props) {
   };
 
   const handleFileInputClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current.click(); //trigger click to the element associated with this ref
   };
   const decodedToken = props.decoded;
   const handleClick = (event) => {
@@ -40,6 +41,9 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleReturnHome = () => {
+    navigate("/");
   };
 
   const handleSetProfile = async (event) => {
@@ -101,27 +105,45 @@ function Header(props) {
               {`${decodedToken.email}`}
             </Typography>
           </div>
-
-          <IconButton onClick={handleClick}>
-            <Avatar src={pictureUrl}></Avatar>
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl} // prop already defined, near which item it should be shown
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            <MenuItem onClick={handleFileInputClick}>
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleSetProfile}
-                style={{ display: "none" }}
-                accept="image/*"
-              ></input>
-              Set Profile Photo
-            </MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </Menu>
+            <IconButton onClick={handleReturnHome}>
+              <HomeIcon
+                sx={{ fontSize: { xs: "26px", sm: "35px", md: "48px" } }}
+              ></HomeIcon>
+            </IconButton>
+            <IconButton onClick={handleClick}>
+              <Avatar
+                sx={{
+                  width: { xs: "22px", sm: "30px", md: "40px" },
+                  height: { xs: "22px", sm: "30px", md: "40px" },
+                }}
+                src={pictureUrl}
+              ></Avatar>
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl} // prop already defined, near which item it should be shown
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleFileInputClick}>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleSetProfile}
+                  style={{ display: "none" }}
+                  accept="image/*"
+                ></input>
+                Set Profile Photo
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </>
