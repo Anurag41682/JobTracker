@@ -11,6 +11,7 @@ import MyDataContext from "./ApplicationDataContext";
 function App() {
   const [applicationData, setApplicationData] = useState(null);
   const [pictureUrl, setPictureUrl] = useState(null);
+
   return (
     <>
       <MyDataContext.Provider

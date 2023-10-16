@@ -28,7 +28,7 @@ const theme = createTheme({
       fontSize: "1rem", // Default font size for body text
     },
     body2: {
-      fontSize: "1.5rem",
+      fontSize: "1.3rem",
     },
   },
   // breakpoints: createTheme().breakpoints,

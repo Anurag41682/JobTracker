@@ -25,7 +25,7 @@ const applicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  resumeFileName: {
+  resumeURL: {
     type: String,
     required: true,
   },

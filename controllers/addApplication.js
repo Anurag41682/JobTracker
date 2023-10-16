@@ -7,9 +7,10 @@ const Add = async (req, res) => {
     const decodedToken = JSON.parse(
       atob(req.headers.authorization.split(".")[1])
     );
+    const URL = "http://localhost:3001";
     const application = new Application({
       ...req.body,
-      resumeFileName: req.file.filename,
+      resumeURL: `${URL}/uploads/${req.file.filename}`,
       creator: decodedToken.id,
     });
     await application.save();
