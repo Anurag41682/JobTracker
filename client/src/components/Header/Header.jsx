@@ -1,7 +1,56 @@
-import { AppBar, Toolbar, Avatar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Avatar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import theme from "../../customTheme";
+import { useState, useRef, useContext } from "react";
+import { setProfilePicture } from "../../api";
+import MyDataContext from "../../ApplicationDataContext";
 function Header(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const {
+    applicationData,
+    setApplicationData,
+    pictureUrl: URL,
+    setPictureUrl,
+  } = useContext(MyDataContext);
+  if (URL) localStorage.setItem("imgURL", JSON.stringify(URL));
+  const pictureUrl = JSON.parse(localStorage.getItem("imgURL"));
+  const fileInputRef = useRef(null);
+
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
   const decodedToken = props.decoded;
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSetProfile = async (event) => {
+    const selectedFile = event.target.files[0];
+    if (!selectedFile) {
+      return; // No file selected, do nothing
+    }
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    // console.log(selectedFile);
+    handleClose();
+    try {
+      const response = await setProfilePicture(formData);
+      // console.log(response);
+      setPictureUrl(response.data.URL);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <AppBar
@@ -44,7 +93,27 @@ function Header(props) {
               {`${decodedToken.email}`}
             </Typography>
           </div>
-          <Avatar></Avatar>
+
+          <IconButton onClick={handleClick}>
+            <Avatar src={pictureUrl}></Avatar>
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl} // prop already defined, near which item it should be shown
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleFileInputClick}>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleSetProfile}
+                style={{ display: "none" }}
+                accept="image/*"
+              ></input>
+              Set Profile Photo
+            </MenuItem>
+            <MenuItem>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </>

@@ -5,7 +5,16 @@ import cors from "cors";
 import auth from "./routes/auth.js";
 import addApplication from "./routes/addApplication.js";
 import fetchApplications from "./routes/fetchApplications.js";
-// import passport from "passport";
+import setDp from "./routes/setDp.js";
+import getDp from "./routes/getDp.js";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+// Define the directory where your static files are located
+const staticFilesDirectory = path.join(__dirname, "uploads");
+
 dotenv.config();
 const app = express();
 
@@ -14,12 +23,17 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
-// app.use(passport.initialize());
+// Serve static files from the specified directory
+app.use("/uploads", express.static(staticFilesDirectory));
+
+//
 
 //----- Specific -------
 app.use("/", auth);
 app.use("/", addApplication);
 app.use("/", fetchApplications);
+app.use("/", setDp);
+app.use("/", getDp);
 
 //-------Mongodb Setup ---------
 mongoose

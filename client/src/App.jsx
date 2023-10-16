@@ -10,10 +10,17 @@ import MyDataContext from "./ApplicationDataContext";
 
 function App() {
   const [applicationData, setApplicationData] = useState(null);
-
+  const [pictureUrl, setPictureUrl] = useState(null);
   return (
     <>
-      <MyDataContext.Provider value={{ applicationData, setApplicationData }}>
+      <MyDataContext.Provider
+        value={{
+          applicationData,
+          setApplicationData,
+          pictureUrl,
+          setPictureUrl,
+        }}
+      >
         <Routes>
           <Route exact path="/" element={<Root />}></Route>
           <Route exact path="/home" element={<Home />}></Route>

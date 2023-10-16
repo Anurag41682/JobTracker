@@ -31,3 +31,13 @@ export const fetchApplications = () => {
   setAuthorizationHeader();
   return API.get("/applications");
 };
+
+export const setProfilePicture = (profilePicture) => {
+  setAuthorizationHeader();
+  return API.post("/setdp", profilePicture);
+};
+
+export const getProfilePictuerURL = () => {
+  setAuthorizationHeader();
+  return API.get("/getdp");
+};

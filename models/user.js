@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dpURL: {
+    type: String,
+    default: null,
+  },
 });
 
 // model is the constructor function that helps to create instance of that particular schema and do the crud operation in the collection.
