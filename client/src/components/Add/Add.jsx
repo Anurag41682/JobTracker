@@ -13,6 +13,7 @@ import {
   Button,
   Grid,
   Typography,
+  Container,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -86,124 +87,131 @@ function Add() {
         <Header decoded={decodedToken} />
         {/* --------- */}
         <form onSubmit={handleSubmit}>
-          <Paper
-            elevation={10}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              my: "20vh",
-              mx: { md: 25, sm: 12, xs: 4 },
-              padding: "10px",
-            }}
-          >
-            <Grid
-              container
-              gap={3}
-              sx={{ justifyContent: "center", alignItems: "center" }}
+          <Container style={{ maxWidth: "600px", margin: "0 auto" }}>
+            <Paper
+              elevation={10}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                my: "20vh",
+                padding: "10px",
+              }}
             >
-              <Grid xs={8} sm={8} md={8} item>
-                <TextField
-                  name="jobTitle"
-                  fullWidth
-                  label="Job Title"
-                  required
-                  value={applicationData.jobTitle}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid xs={8} sm={8} md={8} item>
-                <TextField
-                  name="companyName"
-                  value={applicationData.companyName}
-                  fullWidth
-                  label="Company"
-                  required
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid xs={8} sm={8} md={8} item>
-                <DatePicker
-                  onChange={(newValue) =>
-                    setApplicationData({
-                      ...applicationData,
-                      applicationDate: newValue,
-                    })
-                  }
-                  slotProps={{ textField: { fullWidth: true } }}
-                  format="D/M/YYYY"
-                />
-              </Grid>
-
-              <Grid item xs={8} sm={8} md={8}>
-                <TextField
-                  name="status"
-                  value={applicationData.status}
-                  label="Status"
-                  select
-                  required
-                  fullWidth
-                  onChange={handleChange}
-                >
-                  <MenuItem value="pending">Pending</MenuItem>
-                  <MenuItem value="rejected">Rejected</MenuItem>
-                  <MenuItem value="accepted">Accepted</MenuItem>
-                </TextField>
-              </Grid>
-              <Grid xs={8} sm={8} md={8} item>
-                <TextField
-                  label="Job Description"
-                  multiline
-                  fullWidth
-                  minRows={10}
-                  name="jobDescription"
-                  value={applicationData.jobDescription}
-                  onChange={handleChange}
-                  required
-                ></TextField>
-              </Grid>
-              {/*---------- buttons ----------- */}
-              <Grid item xs={8} sm={8} md={8}>
-                <Button
-                  component="label"
-                  variant="contained"
-                  startIcon={<CloudUploadIcon />}
-                  size="large"
-                  sx={{ minWidth: "120px" }}
-                  fullWidth
-                >
-                  Resume
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    style={{ display: "none" }}
-                    name="resumeFile"
-                    id="resumeFile"
-                    required={!applicationData.resumeFile}
-                    onChange={handleFileChange}
+              <Grid
+                container
+                gap={3}
+                sx={{ justifyContent: "center", alignItems: "center" }}
+              >
+                <Grid xs={8} sm={8} md={8} item>
+                  <TextField
+                    name="jobTitle"
+                    fullWidth
+                    label="Job Title"
+                    required
+                    value={applicationData.jobTitle}
+                    onChange={handleChange}
                   />
-                </Button>
-                {!applicationData.resumeFile && (
-                  <Typography color="#616161">
-                    Select your resume file<sup> *</sup>
-                  </Typography>
-                )}
+                </Grid>
+                <Grid xs={8} sm={8} md={8} item>
+                  <TextField
+                    name="companyName"
+                    value={applicationData.companyName}
+                    fullWidth
+                    label="Company"
+                    required
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid xs={8} sm={8} md={8} item>
+                  <DatePicker
+                    onChange={(newValue) =>
+                      setApplicationData({
+                        ...applicationData,
+                        applicationDate: newValue,
+                      })
+                    }
+                    slotProps={{ textField: { fullWidth: true } }}
+                    format="D/M/YYYY"
+                  />
+                </Grid>
+
+                <Grid item xs={8} sm={8} md={8}>
+                  <TextField
+                    name="status"
+                    value={applicationData.status}
+                    label="Status"
+                    select
+                    required
+                    fullWidth
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="pending">Pending</MenuItem>
+                    <MenuItem value="rejected">Rejected</MenuItem>
+                    <MenuItem value="accepted">Accepted</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid xs={8} sm={8} md={8} item>
+                  <TextField
+                    label="Job Description"
+                    multiline
+                    fullWidth
+                    minRows={10}
+                    name="jobDescription"
+                    value={applicationData.jobDescription}
+                    onChange={handleChange}
+                    required
+                  ></TextField>
+                </Grid>
+                {/*---------- buttons ----------- */}
+                <Grid item xs={8} sm={8} md={8}>
+                  <Button
+                    component="label"
+                    variant="contained"
+                    startIcon={<CloudUploadIcon />}
+                    size="large"
+                    sx={{
+                      minWidth: "120px",
+                      boxShadow: "1px 2px 5px 2px rgba(0,0,0,0.5)",
+                    }}
+                    fullWidth
+                  >
+                    Resume
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      style={{ display: "none" }}
+                      name="resumeFile"
+                      id="resumeFile"
+                      required={!applicationData.resumeFile}
+                      onChange={handleFileChange}
+                    />
+                  </Button>
+                  {!applicationData.resumeFile && (
+                    <Typography color="#616161">
+                      Select your resume file<sup> *</sup>
+                    </Typography>
+                  )}
+                </Grid>
+                <Grid item xs={8} sm={8} md={8}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    startIcon={<SendIcon />}
+                    size="large"
+                    sx={{
+                      minWidth: "120px",
+                      boxShadow: "1px 2px 5px 2px rgba(0,0,0,0.5)",
+                    }}
+                    fullWidth
+                  >
+                    Submit
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={8} sm={8} md={8}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  startIcon={<SendIcon />}
-                  size="large"
-                  sx={{ minWidth: "120px" }}
-                  fullWidth
-                >
-                  Submit
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
+            </Paper>
+          </Container>
         </form>
         {/* ----------- */}
         <Footer />

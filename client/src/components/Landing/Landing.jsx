@@ -64,9 +64,10 @@ function Landing() {
               variant="contained"
               color="primary"
               onClick={handleAddClick}
-              size="large"
               startIcon={<AddCircleIcon />}
-              style={{ color: `${theme.palette.primary[800]}` }}
+              style={{
+                color: `${theme.palette.primary[800]}`,
+              }}
             >
               Add
             </StyledButton>
@@ -113,9 +114,10 @@ function Landing() {
             <StyledButton
               variant="contained"
               onClick={handleInfoClick}
-              size="large"
               startIcon={<InfoIcon></InfoIcon>}
-              style={{ color: `${theme.palette.primary[800]}` }}
+              style={{
+                color: `${theme.palette.primary[800]}`,
+              }}
             >
               View details
             </StyledButton>
