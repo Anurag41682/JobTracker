@@ -1,8 +1,7 @@
 import { addApplication as apiAddApplication } from "../api";
 import { fetchApplications as apiFetchApplication } from "../api";
-
+import { deleteApplication as apiDeleteApplication } from "../api";
 export const fetchApplication = (dispatch) => {
-  // console.log(dispatch);
   apiFetchApplication()
     .then((recieved) => {
       dispatch({ type: "FETCH_APPLICATION", payload: recieved.data }); //action objcet passed
@@ -20,7 +19,16 @@ export const addApplication = (dispatch, formData) => {
       dispatch({ type: "ADD_APPLICATION", payload: recieved.data.application });
     })
     .catch((error) => {
-      // window.location.reload(); //reload to login page if the token is expired
       console.log(error);
+    });
+};
+
+export const deleteApplication = (dispatch, id) => {
+  apiDeleteApplication(id)
+    .then(() => {
+      dispatch({ type: "DELETE_APPLICATION", payload: id });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

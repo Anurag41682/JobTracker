@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Typography, TextField, Button, Paper } from "@mui/material";
-import paperStyles from "./styles/paperStyles";
+import paperStyles from "./styles";
 import isAuth from "../../utils/isAuth";
 import * as api from "../../api/index";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Paper, Button, Typography, TextField } from "@mui/material";
-import paperStyles from "./styles/paperStyles";
+import paperStyles from "./styles";
 import { Link } from "react-router-dom";
 import * as api from "../../api/index";
 import { useNavigate } from "react-router-dom";

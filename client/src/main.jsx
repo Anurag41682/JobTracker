@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./customTheme.js";
+import theme from "./customTheme.jsx";
 import App from "./App.jsx";
 import "./index.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";

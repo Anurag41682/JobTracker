@@ -6,6 +6,7 @@ import FilePresentIcon from "@mui/icons-material/FilePresent";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import theme from "../../customTheme";
+import { deleteApplication } from "../../actions/applicationAction";
 function formatDate(dateString) {
   // Create a Date object from the date string
   const date = new Date(dateString);
@@ -13,11 +14,14 @@ function formatDate(dateString) {
   return date.toLocaleDateString("en-GB");
 }
 function ApplicationList() {
-  const { applicationData: data } = useContext(MyDataContext);
+  const { applicationData: data, dispatch } = useContext(MyDataContext);
   const handleDisplayResume = (item) => {
     window.open(item.resumeURL, "_blank");
   };
-
+  const handleDelete = (item) => {
+    // console.log(item);
+    deleteApplication(dispatch, item._id);
+  };
   return (
     <>
       <Grid
@@ -99,6 +103,7 @@ function ApplicationList() {
                       gap: "0.5rem",
                       color: theme.palette.primary[700],
                     }}
+                    onClick={() => handleDelete(item)}
                   >
                     <DeleteIcon />
                     <Typography>Delete</Typography>

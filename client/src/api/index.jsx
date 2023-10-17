@@ -41,3 +41,8 @@ export const getProfilePictuerURL = () => {
   setAuthorizationHeader();
   return API.get("/getdp");
 };
+
+export const deleteApplication = (id) => {
+  setAuthorizationHeader();
+  return API.delete(`/delete/${id}`);
+};

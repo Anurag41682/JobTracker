@@ -19,7 +19,7 @@ function Info() {
     } else {
       navigate("/login");
     }
-  }, [data]);
+  }, []);
   if (show)
     return (
       <>
