@@ -13,14 +13,11 @@ function formatDate(dateString) {
   return date.toLocaleDateString("en-GB");
 }
 function ApplicationList() {
-  const { applicationData } = useContext(MyDataContext);
-  if (applicationData) {
-    localStorage.setItem("data", JSON.stringify(applicationData));
-  }
+  const { applicationData: data } = useContext(MyDataContext);
   const handleDisplayResume = (item) => {
     window.open(item.resumeURL, "_blank");
   };
-  const data = JSON.parse(localStorage.getItem("data"));
+
   return (
     <>
       <Grid

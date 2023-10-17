@@ -3,22 +3,14 @@ import { useEffect, useContext } from "react";
 import isAuth from "../../utils/isAuth";
 import { useNavigate } from "react-router-dom";
 import MyDataContext from "../../ApplicationDataContext";
+import { fetchApplication } from "../../actions/applicationAction";
 function Root() {
-  const { _, setApplicationData, __, setPictureUrl } =
-    useContext(MyDataContext);
+  const { _, dispatch, __, setPictureUrl } = useContext(MyDataContext);
   const navigate = useNavigate();
   const jwtToken = localStorage.getItem("jwtToken");
   useEffect(() => {
     if (isAuth(jwtToken)) {
-      fetchApplications()
-        .then((recieved) => {
-          setApplicationData(recieved.data);
-          localStorage.setItem("data", JSON.stringify(recieved.data));
-          navigate("/home");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchApplication(dispatch);
       getProfilePictuerURL()
         .then((recieved) => {
           setPictureUrl(recieved.data.URL);
@@ -26,6 +18,7 @@ function Root() {
         .catch((err) => {
           console.log(err);
         });
+      navigate("/home");
     } else {
       navigate("/login");
     }

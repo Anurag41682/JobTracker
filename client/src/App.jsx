@@ -5,11 +5,11 @@ import Signup from "./components/Signup/Sigup";
 import Add from "./components/Add/Add";
 import Info from "./components/Info/Info";
 import Root from "./components/Root/Root";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import MyDataContext from "./ApplicationDataContext";
-
+import applicationReducer from "./reducers/applicationReducer";
 function App() {
-  const [applicationData, setApplicationData] = useState(null);
+  const [applicationData, dispatch] = useReducer(applicationReducer, []);
   const [pictureUrl, setPictureUrl] = useState(null);
 
   return (
@@ -17,7 +17,7 @@ function App() {
       <MyDataContext.Provider
         value={{
           applicationData,
-          setApplicationData,
+          dispatch,
           pictureUrl,
           setPictureUrl,
         }}
