@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import isAuth from "../../utils/isAuth";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import decodeFn from "../../utils/decodeFn";
 import MyDataContext from "../../ApplicationDataContext";
 
@@ -18,24 +18,24 @@ import {
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SendIcon from "@mui/icons-material/Send";
-import { addApplication } from "../../actions/applicationAction";
+import { updateApplication } from "../../actions/applicationAction";
 
 //--------------------------------------------------------------------------//
 
 function Add() {
-  const { applicationData: data, dispatch: dispatchApplication } =
-    useContext(MyDataContext);
-
+  const { _, dispatch: dispatchApplication } = useContext(MyDataContext);
+  const { state } = useLocation();
+  const { item } = state;
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const jwtToken = localStorage.getItem("jwtToken");
   const decodedToken = decodeFn(jwtToken);
   const [applicationData, setApplicationData] = useState({
-    jobTitle: "",
-    companyName: "",
-    applicationDate: "",
-    status: "",
-    jobDescription: "",
+    jobTitle: item.jobTitle,
+    companyName: item.companyName,
+    applicationDate: item.applicationDate,
+    status: item.status,
+    jobDescription: item.jobDescription,
     resumeFile: null,
   });
 
@@ -56,13 +56,14 @@ function Add() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("file", applicationData.resumeFile);
     formData.append("jobTitle", applicationData.jobTitle);
     formData.append("companyName", applicationData.companyName);
     formData.append("applicationDate", applicationData.applicationDate);
     formData.append("status", applicationData.status);
     formData.append("jobDescription", applicationData.jobDescription);
-    formData.append("file", applicationData.resumeFile);
-    addApplication(dispatchApplication, formData); //function to call dispatch
+    // formData.append("applicationId", item._id);
+    updateApplication(dispatchApplication, formData, item._id);
     navigate("/home");
   };
 
@@ -104,7 +105,7 @@ function Add() {
                 gutterBottom
                 sx={{ textDecoration: "underline" }}
               >
-                Add Application
+                Edit Application
               </Typography>
               <Grid
                 container
@@ -161,16 +162,16 @@ function Add() {
                 </Grid>
                 <Grid xs={8} sm={8} md={8} item>
                   <TextField
-                    label="Job Description"
                     multiline
-                    fullWidth
-                    name="jobDescription"
-                    value={applicationData.jobDescription}
-                    onChange={handleChange}
-                    required
                     maxRows={6}
                     minRows={6}
-                  ></TextField>
+                    fullWidth
+                    label="Job Description"
+                    name="jobDescription"
+                    onChange={handleChange}
+                    value={applicationData.jobDescription}
+                    required
+                  />
                 </Grid>
                 {/*---------- buttons ----------- */}
                 <Grid item xs={8} sm={8} md={8}>

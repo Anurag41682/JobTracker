@@ -34,7 +34,12 @@ function Signup() {
   return (
     <Container maxWidth="sm" style={{ margin: "35px auto" }}>
       <Paper elevation={10} style={paperStyles}>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ textDecoration: "underline" }}
+        >
           Signup
         </Typography>
         <form>

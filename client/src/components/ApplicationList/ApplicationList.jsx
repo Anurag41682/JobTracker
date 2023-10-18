@@ -7,6 +7,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import theme from "../../customTheme";
 import { deleteApplication } from "../../actions/applicationAction";
+import { useNavigate } from "react-router-dom";
+import URL from "../../utils/url";
 function formatDate(dateString) {
   // Create a Date object from the date string
   const date = new Date(dateString);
@@ -14,13 +16,17 @@ function formatDate(dateString) {
   return date.toLocaleDateString("en-GB");
 }
 function ApplicationList() {
+  const navigate = useNavigate();
   const { applicationData: data, dispatch } = useContext(MyDataContext);
   const handleDisplayResume = (item) => {
-    window.open(item.resumeURL, "_blank");
+    window.open(`${URL}/uploads/${item.resumeFileName}`, "_blank");
   };
   const handleDelete = (item) => {
     // console.log(item);
     deleteApplication(dispatch, item._id);
+  };
+  const handleEdit = (item) => {
+    navigate(`/home/edit/${item._id}`, { state: { item } }); // second parameter object state can be passed it is optional
   };
   return (
     <>
@@ -90,6 +96,7 @@ function ApplicationList() {
                       gap: "0.5rem",
                       color: theme.palette.primary[700],
                     }}
+                    onClick={() => handleEdit(item)}
                   >
                     <EditIcon />
                     <Typography>Edit</Typography>

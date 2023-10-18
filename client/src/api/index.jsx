@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "http://localhost:3001";
+import URL from "../utils/url";
 
 const API = axios.create({
   baseURL: URL,
@@ -37,7 +37,7 @@ export const setProfilePicture = (profilePicture) => {
   return API.post("/setdp", profilePicture);
 };
 
-export const getProfilePictuerURL = () => {
+export const getProfilePicture = () => {
   setAuthorizationHeader();
   return API.get("/getdp");
 };
@@ -45,4 +45,9 @@ export const getProfilePictuerURL = () => {
 export const deleteApplication = (id) => {
   setAuthorizationHeader();
   return API.delete(`/delete/${id}`);
+};
+
+export const updateApplication = (data, id) => {
+  setAuthorizationHeader();
+  return API.patch(`/update/${id}`, data);
 };

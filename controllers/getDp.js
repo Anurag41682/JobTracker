@@ -5,7 +5,7 @@ const getDp = async (req, res) => {
   try {
     const user = await User.findById(decodedToken.id);
     if (user) {
-      res.status(200).json({ URL: user.dpURL });
+      res.status(200).json({ fileName: user.dpFileName });
     } else {
       console.log("User not found");
     }

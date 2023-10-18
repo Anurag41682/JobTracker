@@ -9,23 +9,30 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import theme from "../../customTheme";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { setProfilePicture } from "../../api";
+import { setProfilePicture, getProfilePicture } from "../../api";
 import MyDataContext from "../../ApplicationDataContext";
+import URL from "../../utils/url";
 function Header(props) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  const {
-    applicationData,
-    setApplicationData,
-    pictureUrl: URL,
-    setPictureUrl,
-  } = useContext(MyDataContext);
-  if (URL) localStorage.setItem("imgURL", JSON.stringify(URL));
-  const pictureUrl = JSON.parse(localStorage.getItem("imgURL"));
+  const { applicationData, dispatch, dpFileName, setDpFileName } =
+    useContext(MyDataContext);
   const fileInputRef = useRef(null);
-
+  useEffect(() => {
+    getProfilePicture()
+      .then((recieved) => {
+        if (recieved) setDpFileName(recieved.data.fileName);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  let imageURL = null;
+  if (dpFileName) {
+    imageURL = `${URL}/uploads/${dpFileName}`;
+  }
   const handleLogout = () => {
     // Clear localStorage
     localStorage.clear();
@@ -58,7 +65,7 @@ function Header(props) {
     try {
       const response = await setProfilePicture(formData);
       // console.log(response);
-      setPictureUrl(response.data.URL);
+      setDpFileName(response.data.fileName);
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +130,7 @@ function Header(props) {
                   width: { xs: "22px", sm: "30px", md: "40px" },
                   height: { xs: "22px", sm: "30px", md: "40px" },
                 }}
-                src={pictureUrl}
+                src={imageURL}
               ></Avatar>
             </IconButton>
             <Menu

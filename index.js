@@ -8,6 +8,7 @@ import fetchApplications from "./routes/fetchApplications.js";
 import setDp from "./routes/setDp.js";
 import getDp from "./routes/getDp.js";
 import deleteApplication from "./routes/deleteApplication.js";
+import updateApplication from "./routes/updateApplication.js";
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 
@@ -36,6 +37,7 @@ app.use("/", fetchApplications);
 app.use("/", setDp);
 app.use("/", getDp);
 app.use("/", deleteApplication);
+app.use("/", updateApplication);
 
 //-------Mongodb Setup ---------
 mongoose

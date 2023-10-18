@@ -20,7 +20,7 @@ function home() {
     } else {
       navigate("/login");
     }
-  }, [data]);
+  }, []);
   if (show)
     return (
       <div

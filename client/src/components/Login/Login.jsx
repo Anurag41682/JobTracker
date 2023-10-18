@@ -43,7 +43,12 @@ function Login() {
     return (
       <Container maxWidth="sm" style={{ margin: "35px auto" }}>
         <Paper elevation={10} style={paperStyles}>
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography
+            variant="h4"
+            align="center"
+            sx={{ textDecoration: "underline" }}
+            gutterBottom
+          >
             Login
           </Typography>
           <form>
