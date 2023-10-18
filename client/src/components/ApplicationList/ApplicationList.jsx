@@ -1,4 +1,4 @@
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, Paper } from "@mui/material";
 import { useContext } from "react";
 import MyDataContext from "../../ApplicationDataContext";
 import { Card, CardContent, Typography } from "@mui/material";
@@ -34,92 +34,98 @@ function ApplicationList() {
         container
         sx={{
           minHeight: "82vh",
-          marginTop: "18vh",
+          my: "18vh",
           gap: "2rem",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {data.map((item) => (
-          <Grid key={item._id} item xs={8} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {item.jobTitle}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  {item.companyName}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                  Status: {item.status}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                  Application Date: {formatDate(item.applicationDate)}
-                </Typography>
-                <Typography variant="body2">Job Description:</Typography>
-                <Typography variant="subtitle2" color="textSecondary">
-                  {item.jobDescription}
-                </Typography>
-                <br></br>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <IconButton
-                    sx={{
-                      color: theme.palette.primary[700],
-                      gap: "0.5rem",
+        {data.length ? (
+          data.map((item) => (
+            <Grid key={item._id} item xs={8} sm={6} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {item.jobTitle}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {item.companyName}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    Status: {item.status}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    Application Date: {formatDate(item.applicationDate)}
+                  </Typography>
+                  <Typography variant="body2">Job Description:</Typography>
+                  <Typography variant="subtitle2" color="textSecondary">
+                    {item.jobDescription}
+                  </Typography>
+                  <br></br>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
                       alignItems: "center",
-                      textAlign: "center",
                     }}
-                    onClick={() => handleDisplayResume(item)}
                   >
-                    <Typography>View Resume</Typography>
-                    <FilePresentIcon></FilePresentIcon>
-                  </IconButton>
-                </div>
+                    <IconButton
+                      sx={{
+                        color: theme.palette.primary[700],
+                        gap: "0.5rem",
+                        alignItems: "center",
+                        textAlign: "center",
+                      }}
+                      onClick={() => handleDisplayResume(item)}
+                    >
+                      <Typography>View Resume</Typography>
+                      <FilePresentIcon></FilePresentIcon>
+                    </IconButton>
+                  </div>
 
-                <Grid
-                  container
-                  justifyContent={"space-around"}
-                  alignItems={"center"}
-                >
-                  <IconButton
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      gap: "0.5rem",
-                      color: theme.palette.primary[700],
-                    }}
-                    onClick={() => handleEdit(item)}
+                  <Grid
+                    container
+                    justifyContent={"space-around"}
+                    alignItems={"center"}
                   >
-                    <EditIcon />
-                    <Typography>Edit</Typography>
-                  </IconButton>
-                  <IconButton
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      gap: "0.5rem",
-                      color: theme.palette.primary[700],
-                    }}
-                    onClick={() => handleDelete(item)}
-                  >
-                    <DeleteIcon />
-                    <Typography>Delete</Typography>
-                  </IconButton>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+                    <IconButton
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                        color: theme.palette.primary[700],
+                      }}
+                      onClick={() => handleEdit(item)}
+                    >
+                      <EditIcon />
+                      <Typography>Edit</Typography>
+                    </IconButton>
+                    <IconButton
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                        color: theme.palette.primary[700],
+                      }}
+                      onClick={() => handleDelete(item)}
+                    >
+                      <DeleteIcon />
+                      <Typography>Delete</Typography>
+                    </IconButton>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Typography sx={{ fontSize: { md: "40px", sm: "30px", xm: "20p3" } }}>
+            No Data To Show
+          </Typography>
+        )}
       </Grid>
     </>
   );

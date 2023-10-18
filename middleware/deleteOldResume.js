@@ -13,7 +13,6 @@ async function deleteOldResume(req, res, next) {
     // console.log(fs.readdirSync("./")); used to read content of folder
     if (fs.existsSync(oldResumePath)) {
       fs.unlinkSync(oldResumePath);
-      console.log("Old Resume deleted successfully");
     }
   } catch (err) {
     console.error(`Error deleting file: ${err}`);

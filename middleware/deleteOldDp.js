@@ -12,7 +12,6 @@ async function deleteOldDp(req, res, next) {
     const oldDpPath = `./uploads/${user.dpFileName}`;
     if (fs.existsSync(oldDpPath)) {
       fs.unlinkSync(oldDpPath);
-      console.log("Old dp deleted successfully");
     }
   } catch (err) {
     console.error(`Error deleting file: ${err}`);

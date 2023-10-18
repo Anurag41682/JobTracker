@@ -3,10 +3,8 @@ import { styled } from "@mui/system";
 export const StyledFooter = styled("div")(({ theme }) => ({
   backgroundColor: `${theme.palette.primary.main}`,
   color: `${theme.palette.primary[800]}`,
-  padding: "30px",
+  padding: "2.4vh",
   textAlign: "center",
-  borderTopLeftRadius: "50% 60px",
-  borderTopRightRadius: "50% 60px",
   fontWeight: "bold",
   fontStyle: "italic",
 }));

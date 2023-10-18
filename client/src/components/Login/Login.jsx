@@ -42,6 +42,29 @@ function Login() {
   if (show)
     return (
       <Container maxWidth="sm" style={{ margin: "35px auto" }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ textDecoration: "underline" }}
+        >
+          Welcome to Job Tracker
+        </Typography>
+        <Typography
+          variant="body1"
+          align="center"
+          sx={{
+            fontFamily: "Arial, sans-serif",
+            fontWeight: "bold",
+            // fontSize: "20px",
+            // color: "blue",
+            fontStyle: "italic",
+          }}
+          paragraph
+        >
+          Track your job applications, manage interviews, and stay organized
+          with our job tracking tool.
+        </Typography>
         <Paper elevation={10} style={paperStyles}>
           <Typography
             variant="h4"

@@ -76,7 +76,7 @@ function Header(props) {
         position="fixed"
         sx={{
           backgroundColor: theme.palette.primary[500],
-          height: "16vh",
+          height: "10vh",
           justifyContent: "center",
         }}
       >
@@ -98,18 +98,6 @@ function Header(props) {
               }}
             >
               {`${decodedToken.firstName} ${decodedToken.lastName}`}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: 12,
-                  sm: 16,
-                  md: 20,
-                },
-              }}
-              color={theme.palette.primary[800]}
-            >
-              {`${decodedToken.email}`}
             </Typography>
           </div>
           <div

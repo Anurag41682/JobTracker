@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ApplicationList from "../ApplicationList/ApplicationList";
 import MyDataContext from "../../ApplicationDataContext";
 import { fetchApplication } from "../../actions/applicationAction";
+import Footer from "../Footer/Footer";
 function Info() {
   const jwtToken = localStorage.getItem("jwtToken");
   const decodedToken = decodeFn(jwtToken);
@@ -25,6 +26,7 @@ function Info() {
       <>
         <Header decoded={decodedToken} />
         <ApplicationList />
+        <Footer />
       </>
     );
   else return null;
