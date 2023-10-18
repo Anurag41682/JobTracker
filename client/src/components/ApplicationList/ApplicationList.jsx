@@ -1,7 +1,14 @@
 import { Grid, IconButton, Paper } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import MyDataContext from "../../ApplicationDataContext";
-import { Card, CardContent, Typography } from "@mui/material";
+import {
+  Card,
+  Container,
+  CardContent,
+  Typography,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,26 +29,74 @@ function ApplicationList() {
     window.open(`${URL}/uploads/${item.resumeFileName}`, "_blank");
   };
   const handleDelete = (item) => {
-    // console.log(item);
     deleteApplication(dispatch, item._id);
   };
   const handleEdit = (item) => {
     navigate(`/home/edit/${item._id}`, { state: { item } }); // second parameter object state can be passed it is optional
   };
+  const [sortedData, setSortedData] = useState(data);
+  const [sortingOption, setSortingOption] = useState("none");
+  useEffect(() => {
+    setSortedData(data);
+  }, [data]);
+  const handleSortingOptionChange = (event) => {
+    const option = event.target.value;
+
+    if (option === "date") {
+      const sortedByDate = [...data].sort(
+        (a, b) => new Date(a.applicationDate) - new Date(b.applicationDate)
+      );
+      setSortedData(sortedByDate);
+    } else if (option === "pending") {
+      const sortedByPending = [...data].filter(
+        (item) => item.status === "pending"
+      );
+      setSortedData(sortedByPending);
+    } else if (option === "accepted") {
+      const sortedByAccepted = [...data].filter(
+        (item) => item.status === "accepted"
+      );
+      setSortedData(sortedByAccepted);
+    } else if (option === "rejected") {
+      const sortedByRejected = [...data].filter(
+        (item) => item.status === "rejected"
+      );
+      setSortedData(sortedByRejected);
+    } else {
+      setSortedData(data);
+    }
+
+    setSortingOption(option);
+  };
+
   return (
     <>
+      <div>
+        {data.length ? (
+          <Container sx={{ mt: "18vh" }}>
+            <Select value={sortingOption} onChange={handleSortingOptionChange}>
+              <MenuItem value="none">Sort / Filter</MenuItem>
+              <MenuItem value="date">By Date</MenuItem>
+              <MenuItem value="accepted">By Accepted</MenuItem>
+              <MenuItem value="pending">By Pending</MenuItem>
+              <MenuItem value="rejected">By Rejected</MenuItem>
+            </Select>
+          </Container>
+        ) : null}
+      </div>
       <Grid
         container
         sx={{
           minHeight: "82vh",
-          my: "18vh",
+          mt: "5vh",
+          mb: "18vh",
           gap: "2rem",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
         {data.length ? (
-          data.map((item) => (
+          sortedData.map((item) => (
             <Grid key={item._id} item xs={8} sm={6} md={4}>
               <Card>
                 <CardContent>

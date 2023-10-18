@@ -154,9 +154,9 @@ function Add() {
                     fullWidth
                     onChange={handleChange}
                   >
+                    <MenuItem value="accepted">Accepted</MenuItem>
                     <MenuItem value="pending">Pending</MenuItem>
                     <MenuItem value="rejected">Rejected</MenuItem>
-                    <MenuItem value="accepted">Accepted</MenuItem>
                   </TextField>
                 </Grid>
                 <Grid xs={8} sm={8} md={8} item>
