@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Sigup";
@@ -10,9 +10,12 @@ import { useReducer, useState } from "react";
 import MyDataContext from "./ApplicationDataContext";
 import applicationReducer from "./reducers/applicationReducer";
 function App() {
+  const navigate = useNavigate();
   const [applicationData, dispatch] = useReducer(applicationReducer, []);
   const [dpFileName, setDpFileName] = useState(null);
-
+  const redirectToHome = () => {
+    navigate("/");
+  };
   return (
     <>
       <MyDataContext.Provider
@@ -31,6 +34,7 @@ function App() {
           <Route exact path="/home/add" element={<Add />} />
           <Route exact path="/home/edit/:id" element={<Edit />} />
           <Route exact path="/home/info/" element={<Info />} />
+          <Route path="*" render={redirectToHome} />
         </Routes>
       </MyDataContext.Provider>
     </>
