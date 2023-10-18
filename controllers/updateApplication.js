@@ -15,7 +15,7 @@ const updateApplication = async (req, res) => {
     existingApplication.resumeFileName = req.file.filename;
     await existingApplication.save();
     res.status(200).json({
-      message: "Resource updated successfully",
+      message: "Application updated successfully",
       existingApplication,
     });
   } catch (error) {

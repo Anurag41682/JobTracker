@@ -13,7 +13,9 @@ const Add = async (req, res) => {
       creator: decodedToken.id,
     });
     await application.save();
-    res.status(201).json({ message: "Saved Successfully", application });
+    res
+      .status(201)
+      .json({ message: "Application Added Successfully", application });
   } catch (error) {
     res.status(500).json({ error: error });
   }
