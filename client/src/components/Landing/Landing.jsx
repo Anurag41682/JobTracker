@@ -4,7 +4,11 @@ import theme from "../../customTheme";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
+import Pie from "../Graph/graph";
+import { useContext } from "react";
+import MyDataContext from "../../ApplicationDataContext";
 function Landing() {
+  const { applicationData } = useContext(MyDataContext);
   const navigate = useNavigate();
   const handleAddClick = () => {
     navigate("/home/add");
@@ -21,7 +25,7 @@ function Landing() {
           alignItems: "center",
           justifyContent: "center",
           minHeight: "80vh",
-          marginTop: "20vh",
+          my: "20vh",
           alignContent: "start",
         }}
         gap={10}
@@ -109,7 +113,7 @@ function Landing() {
               }}
               color={theme.palette.primary[800]}
             >
-              10
+              {applicationData.length}
             </Typography>
             <StyledButton
               variant="contained"
@@ -123,6 +127,9 @@ function Landing() {
             </StyledButton>
           </CardContent>
         </StyledCard>
+        <div style={{ margin: "40px", display: "flex", minWidth: "200px" }}>
+          <Pie />
+        </div>
       </Grid>
     </>
   );
