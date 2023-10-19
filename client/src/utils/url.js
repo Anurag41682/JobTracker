@@ -1,4 +1,4 @@
 // const URL = "http://localhost:3001";
-
-const URL = "https://colorful-pear-undershirt.cyclic.app";
+const URL =
+  "http://anur4g.cgekbwd5g5aubwb0.centralindia.azurecontainer.io:3001";
 export default URL;
