@@ -1,24 +1,43 @@
-import fs from "fs";
 import Application from "../models/application.js";
 
-async function deleteOldResume(req, res, next) {
-  const applicationId = req.params.id;
+import { BlobServiceClient } from "@azure/storage-blob";
+
+const AZURE_STORAGE_CONNECTION_STRING =
+  process.env.AZURE_STORAGE_CONNECTION_STRING;
+const CONTAINER_NAME = process.env.CONTAINER_NAME;
+
+const deleteOldResume = async (req, res, next) => {
   try {
+    const applicationId = req.params.id;
     const application = await Application.findById(applicationId);
     if (!application) {
       return res.status(404).json({ message: "User not found" });
     }
-    const oldResumePath = `./uploads/${application.resumeFileName}`;
-    // console.log(fs.readFileSync("/", "utf-8")); used to read content of file
-    // console.log(fs.readdirSync("./")); used to read content of folder
-    if (fs.existsSync(oldResumePath)) {
-      fs.unlinkSync(oldResumePath);
+    const blobName = application.resumeFileName;
+    // Create a BlobServiceClient
+    const blobServiceClient = BlobServiceClient.fromConnectionString(
+      AZURE_STORAGE_CONNECTION_STRING
+    );
+    // Get a reference to a container
+    const containerClient =
+      blobServiceClient.getContainerClient(CONTAINER_NAME);
+    // Get a reference to a blob
+    const blobClient = containerClient.getBlobClient(blobName);
+    // Delete the blob
+    const deleteResponse = await blobClient.deleteIfExists();
+    if (deleteResponse.succeeded) {
+      console.log(`Blob ${blobName} deleted successfully.`);
+      next();
+    } else {
+      console.error(`Failed to delete blob ${blobName}.`);
+      res.status(500).json({ message: "Failed to delete the resume file." });
     }
-  } catch (err) {
-    console.error(`Error deleting file: ${err}`);
-    return next(err);
+  } catch (error) {
+    console.error("Error deleting the resume file:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while deleting the resume file." });
   }
-  next();
-}
+};
 
 export default deleteOldResume;

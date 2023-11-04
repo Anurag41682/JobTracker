@@ -12,7 +12,7 @@ const updateApplication = async (req, res) => {
     existingApplication.applicationDate = applicationDate;
     existingApplication.status = status;
     existingApplication.jobDescription = jobDescription;
-    existingApplication.resumeFileName = req.file.filename;
+    existingApplication.resumeFileName = req.blobName;
     await existingApplication.save();
     res.status(200).json({
       message: "Application updated successfully",

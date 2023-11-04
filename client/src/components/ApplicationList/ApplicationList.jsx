@@ -1,4 +1,4 @@
-import { Grid, IconButton, Paper } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import MyDataContext from "../../ApplicationDataContext";
 import {
@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import theme from "../../customTheme";
 import { deleteApplication } from "../../actions/applicationAction";
 import { useNavigate } from "react-router-dom";
-import URL from "../../utils/url";
+import azURL from "../../utils/azureStorageURL";
 function formatDate(dateString) {
   // Create a Date object from the date string
   const date = new Date(dateString);
@@ -26,7 +26,7 @@ function ApplicationList() {
   const navigate = useNavigate();
   const { applicationData: data, dispatch } = useContext(MyDataContext);
   const handleDisplayResume = (item) => {
-    window.open(`${URL}/uploads/${item.resumeFileName}`, "_blank");
+    window.open(`${azURL}/${item.resumeFileName}`, "_blank");
   };
   const handleDelete = (item) => {
     deleteApplication(dispatch, item._id);

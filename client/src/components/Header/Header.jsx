@@ -13,7 +13,7 @@ import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { setProfilePicture, getProfilePicture } from "../../api";
 import MyDataContext from "../../ApplicationDataContext";
-import URL from "../../utils/url";
+import azURL from "../../utils/azureStorageURL";
 function Header(props) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,7 +31,7 @@ function Header(props) {
   }, []);
   let imageURL = null;
   if (dpFileName) {
-    imageURL = `${URL}/uploads/${dpFileName}`;
+    imageURL = `${azURL}/${dpFileName}`;
   }
   const handleLogout = () => {
     // Clear localStorage

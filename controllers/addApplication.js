@@ -1,4 +1,5 @@
 import Application from "../models/application.js";
+
 const Add = async (req, res) => {
   try {
     if (req.authInfo) {
@@ -9,7 +10,7 @@ const Add = async (req, res) => {
     );
     const application = new Application({
       ...req.body,
-      resumeFileName: `${req.file.filename}`,
+      resumeFileName: req.blobName,
       creator: decodedToken.id,
     });
     await application.save();
@@ -20,4 +21,5 @@ const Add = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+
 export default Add;
