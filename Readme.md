@@ -13,4 +13,4 @@ The Job Tracking App is a powerful and efficient tool for managing Jobs and trac
 
 ## Deployment :
 
-https://job-tracker-beta.vercel.app/
+https://jobtracker.anur4g.me/
